@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=academic_performance'
+      - 'POSTGRES_PASSWORD=maksi'
+      - 'POSTGRES_USER=root'
+    ports:
+      - '5432'

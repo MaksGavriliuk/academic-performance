@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    username: root
+    password: maksi
+    url: jdbc:postgresql://localhost:5432/academic_performance
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+server:
+  port: 8090
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
