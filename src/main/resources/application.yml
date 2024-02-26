@@ -2,7 +2,7 @@ spring:
   datasource:
     username: root
     password: maksi
-    url: jdbc:postgresql://localhost:5432/academic_performance
+    url: jdbc:postgresql://localhost:5436/academic_performance
   jpa:
     show-sql: true
     hibernate:
