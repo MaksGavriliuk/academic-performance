@@ -8,11 +8,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
+import org.hibernate.annotations.Type;
 
 
 @Entity
@@ -21,20 +26,23 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
+@Accessors(chain = true)
 public class Assessment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "student_id")
+    @Column(name = "student_id", nullable = false)
     private Integer studentId;
 
     @ManyToOne
-    @JoinColumn(name = "subject_id")
+    @MapsId("subject_id")
     private Subject subject;
 
-    @Column(name = "score")
+    @Min(value = 1)
+    @Max(value = 10)
+    @Column(name = "score", nullable = false)
     private Integer score;
 
 }
