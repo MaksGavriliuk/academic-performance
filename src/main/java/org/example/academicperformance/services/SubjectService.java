@@ -19,7 +19,7 @@ public interface SubjectService {
 
     Subject saveSubject(SubjectDTO subjectDTO);
 
-    List<Subject> saveSubjects(List<SubjectDTO> subjects);
+    List<Subject> saveSubjects(List<SubjectDTO> subjectsDTO);
 
     Subject updateSubject(long id, SubjectDTO subjectDTO);
 

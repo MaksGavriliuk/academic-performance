@@ -37,7 +37,7 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public Subject findSubjectByIdOrElseThrow(long id) {
         return subjectRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Не удалось найти предмета с id = " + id));
+                .orElseThrow(() -> new NotFoundException("Не удалось найти предмет с id = " + id));
     }
 
     @Override
