@@ -17,7 +17,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.Type;
 
 
 @Entity
@@ -34,10 +33,10 @@ public class Assessment {
     private Long id;
 
     @Column(name = "student_id", nullable = false)
-    private Integer studentId;
+    private Long studentId;
 
     @ManyToOne
-    @MapsId("subject_id")
+    @JoinColumn(name = "subject_id")
     private Subject subject;
 
     @Min(value = 1)

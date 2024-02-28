@@ -7,9 +7,8 @@ CREATE TABLE subjects
 CREATE TABLE assessments
 (
     id         BIGSERIAL PRIMARY KEY,
-    student_id INT NOT NULL,
-    subject_id INT NOT NULL,
-    score      INT NOT NULL,
+    student_id BIGINT NOT NULL,
+    subject_id BIGINT NOT NULL,
+    score      INT    NOT NULL,
     FOREIGN KEY (subject_id) REFERENCES subjects (id)
 );
-
