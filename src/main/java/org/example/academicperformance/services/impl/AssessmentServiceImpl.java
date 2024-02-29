@@ -6,7 +6,7 @@ import org.example.academicperformance.dtos.AssessmentDTO;
 import org.example.academicperformance.entities.Assessment;
 import org.example.academicperformance.exceptions.NotFoundException;
 import org.example.academicperformance.mappers.AssessmentMapper;
-import org.example.academicperformance.repositories.AssessmentsRepository;
+import org.example.academicperformance.repositories.AssessmentRepository;
 import org.example.academicperformance.services.AssessmentService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class AssessmentServiceImpl implements AssessmentService {
 
-    private final AssessmentsRepository assessmentsRepository;
+    private final AssessmentRepository assessmentsRepository;
 
 
     @Override
