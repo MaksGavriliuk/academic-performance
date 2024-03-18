@@ -12,8 +12,8 @@ public interface SubjectMapper {
 
     SubjectMapper INSTANCE = Mappers.getMapper(SubjectMapper.class);
 
-    SubjectDTO SubjectToSubjectDTO(Subject subject);
+    SubjectDTO toSubjectDTO(Subject subject);
 
-    Subject SubjectDTOToSubject(SubjectDTO subjectDTO);
+    Subject toSubject(SubjectDTO subjectDTO);
 
 }

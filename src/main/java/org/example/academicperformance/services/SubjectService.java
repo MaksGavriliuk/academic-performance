@@ -3,24 +3,23 @@ package org.example.academicperformance.services;
 import org.example.academicperformance.dtos.SubjectDTO;
 import org.example.academicperformance.entities.Subject;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface SubjectService {
 
-    Page<Subject> findSubjects(int pageNumber, int pageSize);
+    Page<SubjectDTO> findSubjects(Pageable pageable);
 
     Subject findSubjectById(long id);
 
-    Subject findSubjectByIdOrElseThrow(long id);
-
     void deleteSubjectById(long id);
 
-    Subject saveSubject(SubjectDTO subjectDTO);
+    SubjectDTO saveSubject(SubjectDTO subjectDTO);
 
-    List<Subject> saveSubjects(List<SubjectDTO> subjectsDTO);
+    List<SubjectDTO> saveSubjects(List<SubjectDTO> subjectsDTO);
 
-    Subject updateSubject(long id, SubjectDTO subjectDTO);
+    SubjectDTO updateSubject(long id, SubjectDTO subjectDTO);
 
 }
