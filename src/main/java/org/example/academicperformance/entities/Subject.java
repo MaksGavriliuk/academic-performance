@@ -27,7 +27,7 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "subject_name", nullable = false)
-    private String subjectName;
+    @Column(name = "name")
+    private String name;
 
 }
