@@ -14,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -48,7 +47,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 
     @Override
     public Assessment saveAssessment(AssessmentDTO assessmentDTO) {
-        Assessment assessment = AssessmentMapper.INSTANCE.AssessmentDTOToAssessment(assessmentDTO);
+        Assessment assessment = AssessmentMapper.INSTANCE.toAssessment(assessmentDTO);
         return assessmentsRepository.save(assessment);
     }
 
@@ -56,16 +55,17 @@ public class AssessmentServiceImpl implements AssessmentService {
     public List<Assessment> saveAssessments(List<AssessmentDTO> assessmentsDTO) {
         List<Assessment> assessments = assessmentsDTO
                 .stream()
-                .map(AssessmentMapper.INSTANCE::AssessmentDTOToAssessment)
-                .collect(Collectors.toList());
+                .map(AssessmentMapper.INSTANCE::toAssessment)
+                .toList();
         return assessmentsRepository.saveAll(assessments);
     }
 
     @Override
     public Assessment updateAssessment(long id, AssessmentDTO assessmentDTO) {
-        return AssessmentMapper.INSTANCE
-                .AssessmentDTOToAssessment(assessmentDTO)
+        Assessment assessment = AssessmentMapper.INSTANCE
+                .toAssessment(assessmentDTO)
                 .setId(findAssessmentByIdOrElseThrow(id).getId());
+        return assessmentsRepository.save(assessment);
     }
 
 }

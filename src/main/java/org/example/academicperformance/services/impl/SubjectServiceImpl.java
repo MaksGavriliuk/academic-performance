@@ -9,12 +9,10 @@ import org.example.academicperformance.mappers.SubjectMapper;
 import org.example.academicperformance.repositories.SubjectRepository;
 import org.example.academicperformance.services.SubjectService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -24,18 +22,13 @@ public class SubjectServiceImpl implements SubjectService {
     private final SubjectRepository subjectRepository;
 
     @Override
-    public Page<Subject> findSubjects(int pageNumber, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        return subjectRepository.findAll(pageable);
+    public Page<SubjectDTO> findSubjects(Pageable pageable) {
+        return subjectRepository.findAll(pageable)
+                .map(SubjectMapper.INSTANCE::toSubjectDTO);
     }
 
     @Override
     public Subject findSubjectById(long id) {
-        return subjectRepository.findById(id).orElse(null);
-    }
-
-    @Override
-    public Subject findSubjectByIdOrElseThrow(long id) {
         return subjectRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Не удалось найти предмет с id = " + id));
     }
@@ -46,25 +39,30 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public Subject saveSubject(SubjectDTO subjectDTO) {
-        Subject subject = SubjectMapper.INSTANCE.SubjectDTOToSubject(subjectDTO);
-        return subjectRepository.save(subject);
+    public SubjectDTO saveSubject(SubjectDTO subjectDTO) {
+        Subject savedSubject = subjectRepository.save(SubjectMapper.INSTANCE.toSubject(subjectDTO));
+        return SubjectMapper.INSTANCE.toSubjectDTO(savedSubject);
     }
 
     @Override
-    public List<Subject> saveSubjects(List<SubjectDTO> subjectsDTO) {
+    public List<SubjectDTO> saveSubjects(List<SubjectDTO> subjectsDTO) {
         List<Subject> subjects = subjectsDTO
                 .stream()
-                .map(SubjectMapper.INSTANCE::SubjectDTOToSubject)
-                .collect(Collectors.toList());
-        return subjectRepository.saveAll(subjects);
+                .map(SubjectMapper.INSTANCE::toSubject)
+                .toList();
+        return subjectRepository.saveAll(subjects)
+                .stream()
+                .map(SubjectMapper.INSTANCE::toSubjectDTO)
+                .toList();
     }
 
     @Override
-    public Subject updateSubject(long id, SubjectDTO subjectDTO) {
-        return SubjectMapper.INSTANCE
-                .SubjectDTOToSubject(subjectDTO)
-                .setId(findSubjectByIdOrElseThrow(id).getId());
+    public SubjectDTO updateSubject(long id, SubjectDTO subjectDTO) {
+        Subject subject = SubjectMapper.INSTANCE
+                .toSubject(subjectDTO)
+                .setId(findSubjectById(id).getId());
+        Subject savedSubject = subjectRepository.save(subject);
+        return SubjectMapper.INSTANCE.toSubjectDTO(savedSubject);
     }
 
 }

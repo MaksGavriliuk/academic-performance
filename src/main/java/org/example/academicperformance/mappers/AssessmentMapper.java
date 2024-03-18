@@ -12,8 +12,8 @@ public interface AssessmentMapper {
 
     AssessmentMapper INSTANCE = Mappers.getMapper(AssessmentMapper.class);
 
-    AssessmentDTO AssessmentToAssessmentDTO(Assessment assessment);
+    AssessmentDTO toAssessmentDTO(Assessment assessment);
 
-    Assessment AssessmentDTOToAssessment(AssessmentDTO assessmentDTO);
+    Assessment toAssessment(AssessmentDTO assessmentDTO);
 
 }
