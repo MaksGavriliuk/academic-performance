@@ -4,24 +4,19 @@ package org.example.academicperformance.services;
 import org.example.academicperformance.dtos.AssessmentDTO;
 import org.example.academicperformance.entities.Assessment;
 import org.springframework.data.domain.Page;
-
-import java.util.List;
+import org.springframework.data.domain.Pageable;
 
 
 public interface AssessmentService {
 
-    Page<Assessment> findAssessments(int pageNumber, int pageSize);
+    Page<AssessmentDTO> findAssessments(Pageable pageable);
 
     Assessment findAssessmentById(long id);
 
-    Assessment findAssessmentByIdOrElseThrow(long id);
-
     void deleteAssessmentById(long id);
 
-    Assessment saveAssessment(AssessmentDTO assessmentDTO);
+    AssessmentDTO saveAssessment(AssessmentDTO assessmentDTO);
 
-    List<Assessment> saveAssessments(List<AssessmentDTO> assessmentsDTO);
-
-    Assessment updateAssessment(long id, AssessmentDTO AssessmentDTO);
+    AssessmentDTO updateAssessment(long id, AssessmentDTO AssessmentDTO);
 
 }
