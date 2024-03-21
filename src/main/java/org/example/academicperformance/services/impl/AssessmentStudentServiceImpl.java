@@ -2,7 +2,6 @@ package org.example.academicperformance.services.impl;
 
 
 import lombok.AllArgsConstructor;
-import org.example.academicperformance.annotations.CheckObjectExists;
 import org.example.academicperformance.entities.Assessment;
 import org.example.academicperformance.repositories.AssessmentRepository;
 import org.example.academicperformance.services.AssessmentStudentService;
@@ -21,7 +20,6 @@ public class AssessmentStudentServiceImpl implements AssessmentStudentService {
 
 
     @Override
-    @CheckObjectExists(repositoryClass = AssessmentRepository.class, idClass = Long.class)
     // проверять studentId с помощью FeignClient
     public List<Assessment> findAssessmentsByStudentId(long studentId) {
         return assessmentRepository.findAssessmentsByStudentId(studentId);
