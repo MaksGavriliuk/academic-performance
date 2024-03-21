@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: academic-performance-service
   datasource:
     username: root
     password: root
@@ -11,8 +13,14 @@ spring:
     enabled: true
     locations: classpath:db/migration
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
 server:
   port: 8090
+  servlet:
+    context-path: /academic-performance/api/v1
 
 logging:
   level:
