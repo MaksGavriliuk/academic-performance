@@ -5,8 +5,6 @@ import org.example.academicperformance.entities.Subject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-import java.util.Optional;
 
 public interface SubjectService {
 
@@ -17,8 +15,6 @@ public interface SubjectService {
     void deleteSubjectById(long id);
 
     SubjectDTO saveSubject(SubjectDTO subjectDTO);
-
-    List<SubjectDTO> saveSubjects(List<SubjectDTO> subjectsDTO);
 
     SubjectDTO updateSubject(long id, SubjectDTO subjectDTO);
 

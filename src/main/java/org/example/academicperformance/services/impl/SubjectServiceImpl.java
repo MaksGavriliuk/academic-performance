@@ -12,19 +12,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 
 @Service
 @AllArgsConstructor
 public class SubjectServiceImpl implements SubjectService {
 
     private final SubjectRepository subjectRepository;
+    private final SubjectMapper subjectMapper;
+
 
     @Override
     public Page<SubjectDTO> findSubjects(Pageable pageable) {
         return subjectRepository.findAll(pageable)
-                .map(SubjectMapper.INSTANCE::toSubjectDTO);
+                .map(subjectMapper::toSubjectDTO);
     }
 
     @Override
@@ -40,29 +40,17 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public SubjectDTO saveSubject(SubjectDTO subjectDTO) {
-        Subject savedSubject = subjectRepository.save(SubjectMapper.INSTANCE.toSubject(subjectDTO));
-        return SubjectMapper.INSTANCE.toSubjectDTO(savedSubject);
-    }
-
-    @Override
-    public List<SubjectDTO> saveSubjects(List<SubjectDTO> subjectsDTO) {
-        List<Subject> subjects = subjectsDTO
-                .stream()
-                .map(SubjectMapper.INSTANCE::toSubject)
-                .toList();
-        return subjectRepository.saveAll(subjects)
-                .stream()
-                .map(SubjectMapper.INSTANCE::toSubjectDTO)
-                .toList();
+        Subject savedSubject = subjectRepository.save(subjectMapper.toSubject(subjectDTO));
+        return subjectMapper.toSubjectDTO(savedSubject);
     }
 
     @Override
     public SubjectDTO updateSubject(long id, SubjectDTO subjectDTO) {
-        Subject subject = SubjectMapper.INSTANCE
+        Subject subject = subjectMapper
                 .toSubject(subjectDTO)
                 .setId(findSubjectById(id).getId());
         Subject savedSubject = subjectRepository.save(subject);
-        return SubjectMapper.INSTANCE.toSubjectDTO(savedSubject);
+        return subjectMapper.toSubjectDTO(savedSubject);
     }
 
 }
